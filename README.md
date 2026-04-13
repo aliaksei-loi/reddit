@@ -2,6 +2,11 @@
 
 To start your Phoenix server:
 
+  * Copy `.env.example` to `.env` and fill in the required values:
+    - `SECRET_KEY_BASE` — generate with `mix phx.gen.secret`
+    - `GUARDIAN_SECRET_KEY` — generate with `mix phx.gen.secret`
+    - `DATABASE_URL` — (production only, dev uses `config/dev.exs`)
+  * Export the env vars (e.g. `export $(cat .env | xargs)`) or use a tool like [direnv](https://direnv.net/)
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
   * Start Phoenix endpoint with `mix phx.server`

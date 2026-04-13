@@ -13,7 +13,9 @@ config :reddit,
 # Configures the endpoint
 config :reddit, RedditWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "87kQMiDNMDB2EEJiwtp6XwZ0Bwbue2pOaT/S7d1bLqFCERjomMyNcho3HyhIvbUG",
+  secret_key_base:
+    System.get_env("SECRET_KEY_BASE") ||
+      raise("environment variable SECRET_KEY_BASE is missing"),
   render_errors: [view: RedditWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Reddit.PubSub, adapter: Phoenix.PubSub.PG2]
 
@@ -31,4 +33,6 @@ import_config "#{Mix.env()}.exs"
 
 config :reddit, Reddit.Guardian,
   issuer: "reddit",
-  secret_key: "F5frw8rsKS3m6RdL4J+5bvdquAe0+KPWSvx9JjVdeLxcMSn8W3Bg0GNGTDtldCgT"
+  secret_key:
+    System.get_env("GUARDIAN_SECRET_KEY") ||
+      raise("environment variable GUARDIAN_SECRET_KEY is missing")
